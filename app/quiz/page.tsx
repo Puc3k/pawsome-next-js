@@ -1,9 +1,10 @@
 'use client'
 
 import React, { useState } from 'react'
-import DogImage from '@/components/DogImage'
 import useDogImages from '@/hooks/useDogImages'
 import useQuizState from '@/hooks/useQuizState'
+import DogImage from '@/components/DogImage'
+import ProgressBar from '@/components/ProgressBar'
 
 export default function QuizPage () {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
@@ -14,13 +15,14 @@ export default function QuizPage () {
     error,
     handleReset: resetDogImages,
   } = useDogImages()
-  console.log(dogImages)
+
   const { quizState, handleChange, resetQuiz } = useQuizState(dogImages)
 
   const leftImage = quizState.pool[0]
   const rightImage = quizState.pool[1]
 
   const currentRound = quizState.round + 1
+  const totalRounds = dogImages.length ?? 10
 
   function handleImageSelected (selected: string, challenger: string) {
     setSelectedImage(null)
@@ -54,22 +56,9 @@ export default function QuizPage () {
             Choose your favorite!
           </p>
         </div>
-        <div className="w-full mx-auto mb-6 flex flex-col items-center">
-          <div
-            className="relative mx-auto mb-4 w-full max-w-md bg-gray-200 rounded-full h-2">
-            <div
-              className="bg-yellow-400 h-2.5 rounded-full"
-              style={ { width: '30%' } }
-            ></div>
-            <span className="absolute -right-4 -top-3 text-3xl"
-                  style={ {
-                    animationDuration: '5s',
-                  } }>🥺</span>
-          </div>
-          <p
-            className="text-center text-md text-gray-500">Question { currentRound } of
-            10</p>
-        </div>
+
+        <ProgressBar current={ currentRound } total={ totalRounds }/>
+
         { error &&
           <p className="text-center text-red-500">Error loading images.</p>
         }
