@@ -1,13 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #ededed;
-  /*--foreground: #171717;*/
-  --foreground: #0a0a0a;
+    --background: #ededed;
+    /*--foreground: #171717;*/
+    --foreground: #0a0a0a;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+        opacity: 0.8;
+    }
+    50% {
+        transform: translateY(-15px);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 0.8;
+    }
+}
+
+.animate-float {
+    animation: float ease-in-out infinite;
 }
