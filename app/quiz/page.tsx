@@ -5,6 +5,7 @@ import useDogImages from '@/hooks/useDogImages'
 import useQuizState from '@/hooks/useQuizState'
 import DogImage from '@/components/DogImage'
 import ProgressBar from '@/components/ProgressBar'
+import WinnerDogImage from '@/components/WinnerDogImage'
 import classes from './page.module.css'
 
 export default function QuizPage () {
@@ -38,23 +39,34 @@ export default function QuizPage () {
 
   return (
     <section className="relative mx-auto pt-8 pb-16 overflow-hidden bg-gray-50">
-      <div className={`inset-0 opacity-3 pointer-events-none ${classes.pawBackground}`}></div>
+      <div
+        className={ `inset-0 opacity-3 pointer-events-none ${ classes.pawBackground }` }></div>
       <div className="relative z-10">
-        <div>
-          <h1
-            className="text-5xl text-center font-bold mb-4 mt-6 font-[Poppins] tracking-wide">
-            Which dog image wins?
-          </h1>
-          <p className="text-center text-lg font-sans mb-6 tracking-wide">
-            Choose your favorite!
-          </p>
-        </div>
+        { quizState.pool.length === 1 ? (
+          <WinnerDogImage
+            imageUrl={ quizState.pool[0] }
+            onReset={ handleReset }
+          />
+        ) : (
+          <>
+            <div>
+              <h1
+                className="text-5xl text-center font-bold mb-4 mt-6 font-[Poppins] tracking-wide">
+                Which dog image wins?
+              </h1>
+              <p className="text-center text-lg font-sans mb-6 tracking-wide">
+                Choose your favorite!
+              </p>
+            </div>
 
-        <ProgressBar current={ currentRound } total={ totalRounds }/>
+            <ProgressBar current={ currentRound } total={ totalRounds }/>
+          </>
+        ) }
 
         { error &&
           <p className="text-center text-red-500">Error loading images.</p>
         }
+
         { isLoading ? (
           <>
             <p className="text-center">Loading images...</p>
@@ -74,7 +86,6 @@ export default function QuizPage () {
             </div>
           </>
         ) : (
-
           quizState.pool.length > 1 && (
             <>
               <div
@@ -116,30 +127,6 @@ export default function QuizPage () {
             </> )
         )
         }
-
-
-        { quizState.pool.length === 1 && (
-          <div className="flex flex-col items-center justify-center mt-12">
-            <h1
-              className="text-4xl font-bold mb-4 flex items-center gap-2 text-gray-800">
-              <span>Winner!</span>
-              <span className="text-yellow-500">🏆</span>
-            </h1>
-            <DogImage
-              key={ quizState.pool[0] }
-              imageUrl={ quizState.pool[0] }
-              isSelected={ false }
-              onClick={ () => {} }
-              alt="Winner dog image"
-            />
-            <button
-              onClick={ handleReset }
-              className="mt-6 px-8 py-3 bg-yellow-400 hover:bg-yellow-500 text-white text-lg font-semibold rounded-full shadow-md transition"
-            >
-              Reset
-            </button>
-          </div>
-        ) }
       </div>
     </section>
   )
