@@ -5,6 +5,7 @@ import useDogImages from '@/hooks/useDogImages'
 import useQuizState from '@/hooks/useQuizState'
 import DogImage from '@/components/DogImage'
 import ProgressBar from '@/components/ProgressBar'
+import classes from './page.module.css'
 
 export default function QuizPage () {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
@@ -37,15 +38,7 @@ export default function QuizPage () {
 
   return (
     <section className="relative mx-auto pt-8 pb-16 overflow-hidden bg-gray-50">
-      <div
-        className="absolute inset-0 opacity-3 pointer-events-none"
-        style={ {
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='0' y='50' font-size='50'%3E🐾%3C/text%3E%3C/svg%3E")`,
-          backgroundRepeat: 'repeat',
-          backgroundSize: '200px 200px',
-        } }
-      ></div>
-
+      <div className={`inset-0 opacity-3 pointer-events-none ${classes.pawBackground}`}></div>
       <div className="relative z-10">
         <div>
           <h1
