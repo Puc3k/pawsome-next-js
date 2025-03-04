@@ -12,7 +12,7 @@ export default function WinnerDogImage ({
   return (
     <div className="flex flex-col items-center justify-center mt-4">
       <h1
-        className="text-4xl font-bold mb-4 flex items-center gap-2 text-gray-800">
+        className="text-5xl font-bold mb-8 flex items-center gap-2 text-gray-800 font-[Poppins] tracking-wide">
         <span>Winner!</span>
         <span className="text-yellow-500">🏆</span>
       </h1>
