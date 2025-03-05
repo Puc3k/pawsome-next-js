@@ -26,7 +26,7 @@ export default function useQuizState (initialPool: string[]) {
   }, [])
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && initialPool.length > 0 &&
+    if (initialPool.length > 0 &&
       state.pool.length === 0) {
       setState({
         round: 0,
@@ -37,9 +37,7 @@ export default function useQuizState (initialPool: string[]) {
   }, [initialPool])
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
       localStorage.setItem('quizState', JSON.stringify(state))
-    }
   }, [state])
 
   const handleChange = (selected: string, challenger: string) => {
