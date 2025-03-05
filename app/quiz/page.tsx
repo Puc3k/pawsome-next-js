@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useDogImages from '@/hooks/useDogImages'
 import useQuizState from '@/hooks/useQuizState'
 import DogImage from '@/components/DogImage'
@@ -8,6 +8,7 @@ import ProgressBar from '@/components/ProgressBar'
 import WinnerDogImage from '@/components/WinnerDogImage'
 import classes from './page.module.css'
 import DogImageSkeleton from '@/components/DogImage/DogImageSkeleton'
+import { saveWinner } from '@/lib/quiz'
 
 export default function QuizPage () {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
@@ -21,6 +22,12 @@ export default function QuizPage () {
   } = useDogImages()
 
   const { quizState, handleChange, resetQuiz } = useQuizState(dogImages)
+
+  useEffect(() => {
+    if (quizState.pool.length === 1 ) {
+      saveWinner(quizState.pool[0])
+    }
+  }, [quizState.pool])
 
   const leftImage = quizState.pool[0]
   const rightImage = quizState.pool[1]
