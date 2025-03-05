@@ -25,7 +25,7 @@ export default function QuizPage () {
   const rightImage = quizState.pool[1]
 
   const currentRound = quizState.round + 1
-  const totalRounds = dogImages.length ?? 10
+  const totalRounds = dogImages.length ? dogImages.length  : 10
 
   function handleImageSelected (selected: string, challenger: string) {
     setSelectedImage(null)
