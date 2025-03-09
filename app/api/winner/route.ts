@@ -1,12 +1,18 @@
-// app/api/winner/route.ts
-
 import { NextResponse } from 'next/server';
+import clientPromise from '@/lib/mongodb'
 
 export async function POST(request: Request) {
   try {
     const { winnerUrl } = await request.json();
 
-    //todo save data in Mongodb
+    const client = await clientPromise;
+
+    const db = client.db('pawsome')
+
+    await db.collection('winners').insertOne({
+      url: winnerUrl,
+      createdAt: new Date().toISOString(),
+    })
 
     return NextResponse.json({
       message: 'Winner saved successfully',
