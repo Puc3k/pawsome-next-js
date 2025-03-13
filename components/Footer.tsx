@@ -16,13 +16,6 @@ const Footer = () => {
             />
             <span className="text-3xl font-extrabold font-mono">Pawsome</span>
           </Link>
-
-          <ul className="flex flex-wrap justify-center gap-6 text-lg">
-            <li>
-              <Link href="#"
-                    className="hover:text-yellow-500 transition">Stats</Link>
-            </li>
-          </ul>
         </div>
 
         <hr className="my-8 border-gray-300"/>
