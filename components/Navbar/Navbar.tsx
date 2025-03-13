@@ -13,7 +13,7 @@ import {
 } from '@heroicons/react/24/outline'
 
 import logoImg from '@/assets/logo.webp'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface NavbarProps {
   userRole: 'guest' | 'user' | 'admin',
@@ -22,6 +22,23 @@ interface NavbarProps {
 
 const Navbar: React.FC<NavbarProps> = ({ userRole, avatar }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [totalQuizzes, setTotalQuizzes] = useState<number | null>(null);
+
+  useEffect(() => {
+    async function fetchTotalQuizzes() {
+      try {
+        const res = await fetch('/api/winner');
+        if (!res.ok) throw new Error('Failed to fetch winners');
+        const { totalQuizzes } = await res.json();
+        setTotalQuizzes(totalQuizzes);
+      } catch (error) {
+        console.error('Error fetching total quizzes:', error);
+      }
+    }
+
+    fetchTotalQuizzes();
+  }, []);
+
 
   return (
     <header className="bg-white border-b-1 border-gray-200">
@@ -47,6 +64,9 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, avatar }) => {
             <Bars3Icon aria-hidden="true" className="size-6"/>
           </button>
         </div>
+        {totalQuizzes !== null && (
+          <p className="text-gray-600">Quizzes Completed: {totalQuizzes}</p>
+        )}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <button
             className="flex items-center rounded-md bg-amber-400 py-2 px-4 border border-transparent text-center text-sm text-slate-900 transition-all shadow-sm hover:shadow-lg focus:bg-amber-500 focus:shadow-none active:bg-amber-500 hover:bg-amber-500 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer"

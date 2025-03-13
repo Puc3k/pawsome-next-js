@@ -44,7 +44,9 @@ export async function GET (request: Request) {
     ])
     .toArray();
 
-    return NextResponse.json({ topWinners });
+    const totalQuizzes = await db.collection('winners').countDocuments()
+
+    return NextResponse.json({ topWinners, totalQuizzes });
   } catch (error) {
     return NextResponse.json(
       { message: 'Error getting Top3 winners', error },
