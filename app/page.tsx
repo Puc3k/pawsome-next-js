@@ -1,7 +1,6 @@
 'use client'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-// import img from '@/public/img.png'
 import logoImg from '@/assets/logo.webp'
 import { fetchWinners } from '@/lib/quiz'
 
