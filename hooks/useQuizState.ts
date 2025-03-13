@@ -57,5 +57,10 @@ export default function useQuizState (initialPool: string[]) {
     setState({ pool: [], currentWinner: null, round: 0 })
   }
 
-  return { quizState: state, handleChange, resetQuiz }
+  const setWinner = (winner: string) => {
+    setState({ pool: [winner], currentWinner: null, round: 0 })
+    localStorage.setItem('quizState', JSON.stringify(state))
+  }
+
+  return { quizState: state, handleChange, resetQuiz, setWinner }
 }

@@ -15,3 +15,15 @@ export async function fetchWinners () {
 
   return await res.json()
 }
+
+export function saveWinnerLocal (winnerUrl: string) {
+  localStorage.setItem('winnerDogImage', winnerUrl)
+}
+
+export function getWinnerLocal () {
+  return localStorage.getItem('winnerDogImage')
+}
+
+export function clearWinnerLocal () {
+  localStorage.removeItem('winnerDogImage')
+}
