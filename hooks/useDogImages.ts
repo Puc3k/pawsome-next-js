@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 
-const API_BASE_URL = `https://api.thedogapi.com/v1/images/search`
+const API_BASE_URL = `https://dog.ceo/api/breeds/image/random`
+
 const IMAGES_KEY = 'quizImages'
-const TOTAL_IMAGES = 13
+const TOTAL_IMAGES = 10
 
 export default function useDogImages () {
   const [dogImages, setDogImages] = useState<string[]>([])
@@ -13,7 +14,8 @@ export default function useDogImages () {
     setIsLoading(true)
     setError(null)
     try {
-      const res = await fetch(API_BASE_URL + `?limit=${ TOTAL_IMAGES }`)
+
+      const res = await fetch(API_BASE_URL + `/${ TOTAL_IMAGES }`)
 
       if (!res.ok) {
         setError('Failed to fetch dogImages')
@@ -24,8 +26,7 @@ export default function useDogImages () {
       if (data && data.errors) {
         setError('Failed to fetch dogImages')
       }
-
-      const images = data.map((item: any) => item.url)
+      const images = data['message']
       setDogImages(images)
       localStorage.setItem(IMAGES_KEY, JSON.stringify(images))
     } catch (error) {
