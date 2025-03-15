@@ -17,7 +17,7 @@ export default function QuizPage () {
     refetch: refetchDogImages,
   } = useDogImages()
 
-  const { quizState, handleChange, resetQuiz, setWinner } = useQuizState(dogImages)
+  const { quizState, handleChange, resetQuiz } = useQuizState(dogImages)
 
   useEffect(() => {
     if (quizState.pool.length === 1) {
