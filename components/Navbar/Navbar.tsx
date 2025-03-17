@@ -15,30 +15,24 @@ import {
 import logoImg from '@/assets/logo.webp'
 import { useState, useEffect } from 'react'
 
-interface NavbarProps {
-  userRole: 'guest' | 'user' | 'admin',
-  avatar: string
-}
-
-const Navbar: React.FC<NavbarProps> = ({ userRole, avatar }) => {
+const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [totalQuizzes, setTotalQuizzes] = useState<number | null>(null);
+  const [totalQuizzes, setTotalQuizzes] = useState<number | null>(null)
 
   useEffect(() => {
-    async function fetchTotalQuizzes() {
+    async function fetchTotalQuizzes () {
       try {
-        const res = await fetch('/api/winner');
-        if (!res.ok) throw new Error('Failed to fetch winners');
-        const { totalQuizzes } = await res.json();
-        setTotalQuizzes(totalQuizzes);
+        const res = await fetch('/api/winner')
+        if (!res.ok) throw new Error('Failed to fetch winners')
+        const { totalQuizzes } = await res.json()
+        setTotalQuizzes(totalQuizzes)
       } catch (error) {
-        console.error('Error fetching total quizzes:', error);
+        console.error('Error fetching total quizzes:', error)
       }
     }
 
-    fetchTotalQuizzes();
-  }, []);
-
+    fetchTotalQuizzes()
+  }, [])
 
   return (
     <header className="bg-white border-b-1 border-gray-200">
@@ -64,9 +58,17 @@ const Navbar: React.FC<NavbarProps> = ({ userRole, avatar }) => {
             <Bars3Icon aria-hidden="true" className="size-6"/>
           </button>
         </div>
-        {totalQuizzes !== null && (
-          <p className="text-gray-600">Quizzes Completed: {totalQuizzes}</p>
-        )}
+        { totalQuizzes !== null && (
+          <div className="flex items-center gap-2">
+            {/* Minimalistyczna łapka */ }
+            <span className="text-gray-500 text-xl">🐾</span>
+            {/* Delikatny tekst */ }
+            <span className="text-gray-700 text-lg font-medium">
+      { totalQuizzes } quizzes completed
+    </span>
+          </div>
+        ) }
+
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <button
             className="flex items-center rounded-md bg-amber-400 py-2 px-4 border border-transparent text-center text-sm text-slate-900 transition-all shadow-sm hover:shadow-lg focus:bg-amber-500 focus:shadow-none active:bg-amber-500 hover:bg-amber-500 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer"
