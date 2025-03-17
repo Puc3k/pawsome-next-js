@@ -37,6 +37,14 @@ export default function useQuizState (initialPool: string[]) {
   }, [initialPool])
 
   useEffect(() => {
+    const stored = localStorage.getItem('quizState')
+
+    if (stored) {
+      setState(JSON.parse(stored))
+    }
+  }, [])
+
+  useEffect(() => {
       localStorage.setItem('quizState', JSON.stringify(state))
   }, [state])
 
