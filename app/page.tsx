@@ -12,6 +12,7 @@ const TopDogs: React.FC = () => {
   const [hasMounted, setHasMounted] = useState(false);
   const [topImages, setTopImages] = useState([])
   const [floatingItems] = useState<string[]>(['🐶', '🦴', '🎾', '🐕'])
+  const [totalCompletions, setTotalCompletions] = useState<number | null>(null)
 
   useEffect(() => {
     async function fetchData() {
@@ -26,13 +27,28 @@ const TopDogs: React.FC = () => {
     setHasMounted(true);
   }, []);
 
+  useEffect(() => {
+    async function fetchTotalQuizzes () {
+      try {
+        const res = await fetch('/api/winner')
+        if (!res.ok) throw new Error('Failed to fetch winners')
+        const { totalQuizzes } = await res.json()
+        setTotalCompletions(totalQuizzes)
+      } catch (error) {
+        console.error('Error fetching total quizzes:', error)
+      }
+    }
+
+    fetchTotalQuizzes()
+  }, [])
+
   return (
     <section
       className="relative bg-gradient-to-b from-white to-amber-100 py-16 pb-32 overflow-hidden">
 
-      <div className="text-center mb-12">
-        <h1 className="text-5xl font-black text-gray-800 mb-4">
-          🐾 Welcome to Pawsome!
+      <div className="text-center">
+        <h1 className="text-5xl font-extrabold text-gray-800 mb-4">
+          Welcome to Pawsome!
         </h1>
         <p className="text-lg text-gray-600 max-w-xl mx-auto">
           Discover the cutest dogs chosen by our community. Vote for your
@@ -40,8 +56,17 @@ const TopDogs: React.FC = () => {
           and help us find the ultimate Top Dog!
         </p>
       </div>
-
-      <div className="flex items-end justify-center gap-8">
+      {totalCompletions !== null && (
+        <div className="mt-8 text-center">
+          <div className="text-5xl font-extrabold text-amber-600 tracking-tight font-mono">
+            {totalCompletions}
+          </div>
+          <p className="mt-2 text-md text-gray-500 font-semibold">
+            Quizzes <span className="text-amber-500">Completed</span>
+          </p>
+        </div>
+      )}
+      <div className="flex items-end justify-center gap-8 mt-10">
         <div className="flex flex-col items-center">
           <Image
             src={ topImages[1] ? topImages[1]['_id'] : logoImg}
