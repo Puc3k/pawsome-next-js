@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import React from 'react'
 
 interface WinnerDogImageProps {
   imageUrl: string,
@@ -25,9 +26,9 @@ export default function WinnerDogImage ({
       />
       <button
         onClick={ onReset }
-        className="mt-6 px-8 py-3 bg-yellow-400 hover:bg-yellow-500 text-white text-lg font-semibold rounded-full shadow-md transition"
+        className="mt-6 mx-auto flex items-center rounded-md bg-amber-400 py-2 px-4 border border-transparent text-center text-sm text-white font-mono transition-all shadow-sm hover:shadow-lg focus:bg-amber-500 focus:shadow-none active:bg-amber-500 hover:bg-amber-500 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer font-bold"
       >
-        Reset
+        Continue the Fun
       </button>
     </div>
   )

@@ -107,12 +107,6 @@ const QuizContent: React.FC<QuizContentProps> = ({
                 alt="Second dog image"
               />
             </div>
-            <button
-              onClick={ handleReset }
-              className="mt-6 mx-auto block px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-white rounded-full text-lg font-semibold shadow-md transition"
-            >
-              Reset
-            </button>
           </>
         ) }
       </div>

@@ -11,7 +11,7 @@ async function getTopWinners() {
 const TopDogs: React.FC = () => {
   const [hasMounted, setHasMounted] = useState(false);
   const [topImages, setTopImages] = useState([])
-  const [floatingItems] = useState<string[]>(['🐶', '🦴', '🎾', '🐕'])
+  const [floatingItems] = useState<string[]>(['🎾', '🦴', '🐶', '🐕'])
   const [totalCompletions, setTotalCompletions] = useState<number | null>(null)
 
   useEffect(() => {
@@ -45,12 +45,11 @@ const TopDogs: React.FC = () => {
   return (
     <section
       className="relative bg-gradient-to-b from-white to-amber-100 py-16 pb-32 overflow-hidden">
-
       <div className="text-center">
-        <h1 className="text-5xl font-extrabold text-gray-800 mb-4">
+        <h1 className="text-5xl font-extrabold text-gray-800 mb-4 font-[Poppins]">
           Welcome to Pawsome!
         </h1>
-        <p className="text-lg text-gray-600 max-w-xl mx-auto">
+        <p className="text-lg text-gray-600 max-w-xl mx-auto font-[Poppins]">
           Discover the cutest dogs chosen by our community. Vote for your
           favorite
           and help us find the ultimate Top Dog!
@@ -61,19 +60,19 @@ const TopDogs: React.FC = () => {
           <div className="text-5xl font-extrabold text-amber-600 tracking-tight font-mono">
             {totalCompletions}
           </div>
-          <p className="mt-2 text-md text-gray-500 font-semibold">
+          <p className="mt-2 text-md text-gray-500 font-semibold font-mono">
             Quizzes <span className="text-amber-500">Completed</span>
           </p>
         </div>
       )}
       <div className="flex items-end justify-center gap-8 mt-10">
-        <div className="flex flex-col items-center">
+        <div className="glass-pane flex flex-col items-center">
           <Image
             src={ topImages[1] ? topImages[1]['_id'] : logoImg}
             width="600"
             height="600"
             alt="Top 2 Dog"
-            className="w-60 h-60 object-cover rounded-3xl shadow-lg border-4 border-slate-400"
+            className="w-60 h-60 object-cover rounded-3xl shadow-lg border-4 border-slate-400/50"
             priority
           />
           <p className="mt-4 text-lg font-semibold font-mono">#2 Runner Up</p>
@@ -85,7 +84,7 @@ const TopDogs: React.FC = () => {
             width="600"
             height="600"
             alt="Top 1 Dog"
-            className="w-80 h-80 object-cover rounded-3xl shadow-xl border-4 border-yellow-500"
+            className="w-80 h-80 object-cover rounded-3xl shadow-xl border-4 border-yellow-500/50"
             priority
           />
           <p className="mt-4 text-xl font-bold text-yellow-600 font-mono">🏆 #1
@@ -98,7 +97,7 @@ const TopDogs: React.FC = () => {
             width="600"
             height="600"
             alt="Top 3 Dog"
-            className="w-60 h-60 object-cover rounded-3xl shadow-lg border-4 border-amber-600"
+            className="w-60 h-60 object-cover rounded-3xl shadow-lg border-4 border-amber-600/50"
             priority
           />
           <p className="mt-4 text-lg font-semibold font-mono">#3 Fan
@@ -108,24 +107,35 @@ const TopDogs: React.FC = () => {
 
       <div className="mt-12 text-center">
         <button
-          className="px-8 py-3 bg-yellow-500 hover:bg-yellow-600 text-white text-lg font-semibold rounded-full shadow-lg transition-all font-mono">
+          className="rounded-md bg-amber-400 py-3 px-8 border border-transparent text-center text-sm text-white font-mono transition-all shadow-sm hover:shadow-lg focus:bg-amber-500 focus:shadow-none active:bg-amber-500 hover:bg-amber-500 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer font-bold">
           Start the Quiz →
         </button>
       </div>
 
-      {hasMounted && floatingItems.map((item, index) => (
-        <div
-          key={ index }
-          className="absolute text-4xl animate-float"
-          style={ {
-            top: `${ Math.random() * 80 + 10 }%`,
-            left: `${ Math.random() * 80 + 10 }%`,
-            animationDuration: `${ Math.random() * 5 + 3 }s`,
-          } }
-        >
-          { item }
-        </div>
-      )) }
+      {hasMounted && floatingItems.map((item, index) => {
+        const positions = [
+          { top: '20%', left: '15%' },
+          { top: '30%', right: '15%' },
+          { top: '55%', left: '5%' },
+          { bottom: '25%', right: '10%' },
+        ];
+        const position = positions[index % positions.length];
+        return (
+          <div
+            key={ index }
+            className="absolute text-4xl animate-float"
+            style={ {
+              top: position.top,
+              left: position.left || 'auto', // Użyj left, jeśli zdefiniowane
+              right: position.right || 'auto', // Użyj right, jeśli zdefiniowane
+              bottom: position.bottom || 'auto', // Użyj bottom, jeśli zdefiniowane
+              animationDuration: `${ Math.random() * 5 + 3 }s`,
+            } }
+          >
+            { item }
+          </div>
+        );
+      })}
 
       <div
         className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
