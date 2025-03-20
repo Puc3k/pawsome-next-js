@@ -1,8 +1,8 @@
 'use client'
 import React from 'react'
-import DogImage from '@/components/DogImage'
-import ProgressBar from '@/components/ProgressBar'
-import WinnerDogImage from '@/components/WinnerDogImage'
+import DogImage from '@/components/DogImage/DogImage'
+import ProgressBar from '@/components/Utils/ProgressBar'
+import WinnerDogImage from '@/components/DogImage/WinnerDogImage'
 import DogImageSkeleton from '@/components/DogImage/DogImageSkeleton'
 import classes from './quiz.module.css'
 
