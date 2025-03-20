@@ -49,7 +49,7 @@ const TopDogs: React.FC = () => {
 
     fetchTotalQuizzes()
   }, [])
-console.log(isTopImagesLoaded)
+
   return (
     <section className="relative bg-gradient-to-b from-white to-amber-100 py-16 pb-32 overflow-hidden">
       <div className="text-center">
