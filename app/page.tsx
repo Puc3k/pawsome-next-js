@@ -5,6 +5,7 @@ import { fetchWinners } from '@/lib/quiz'
 import TopDogItem from '@/components/TopDog/TopDogItem'
 import FloatingItems from '@/components/Utils/FloatingItems'
 import TopDogImageSkeleton from '@/components/TopDog/TopDogImageSkeleton'
+import Link from 'next/link'
 
 async function getTopWinners() {
   return await fetchWinners()
@@ -98,9 +99,9 @@ const TopDogs: React.FC = () => {
         )}
       </div>
       <div className="mt-12 text-center">
-        <button className="rounded-md bg-amber-400 py-3 px-8 border border-transparent text-center text-sm text-white font-mono transition-all shadow-sm hover:shadow-lg focus:bg-amber-500 focus:shadow-none active:bg-amber-500 hover:bg-amber-500 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer font-bold">
+        <Link href="/quiz" className="rounded-md bg-amber-400 py-3 px-8 border border-transparent text-center text-sm text-white font-mono transition-all shadow-sm hover:shadow-lg focus:bg-amber-500 focus:shadow-none active:bg-amber-500 hover:bg-amber-500 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer font-bold">
           Start the Quiz →
-        </button>
+        </Link>
       </div>
       { hasMounted && <FloatingItems items={ floatingItems } /> }
       <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
