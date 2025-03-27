@@ -11,7 +11,7 @@ const FloatingItems: React.FC<{ items: string[] }> = ({ items }) => {
     return (
       <div
         key={ index }
-        className="absolute text-4xl animate-float"
+        className="hidden md:block absolute text-4xl animate-float"
         style={ {
           top: position.top,
           left: position.left || 'auto',

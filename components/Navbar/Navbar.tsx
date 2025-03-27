@@ -77,18 +77,20 @@ const Navbar: React.FC = () => {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <a
-                  href="#"
+                <Link
+                  href="/"
+                  onClick={ () => setMobileMenuOpen(false) }
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-slate-900 hover:bg-gray-50"
                 >
                   Homepage
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="/quiz"
+                  onClick={ () => setMobileMenuOpen(false) }
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-slate-900 hover:bg-gray-50"
                 >
                   Start Quiz
-                </a>
+                </Link>
               </div>
             </div>
           </div>

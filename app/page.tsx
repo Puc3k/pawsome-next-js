@@ -57,7 +57,7 @@ const TopDogs: React.FC = () => {
         <h1 className="text-5xl font-extrabold text-gray-800 mb-4 font-[Poppins]">
           Welcome to Pawsome!
         </h1>
-        <p className="text-lg text-gray-600 max-w-xl mx-auto font-[Poppins]">
+        <p className="text-lg text-gray-600 max-w-xl mx-auto font-[Poppins] px-6 md:px-0">
           Discover the cutest dogs chosen by our community. Vote for your
           favorite and help us find the ultimate Top Dog!
         </p>
@@ -81,12 +81,12 @@ const TopDogs: React.FC = () => {
           </div>
         )
       )}
-      <div className="flex items-end justify-center gap-8 mt-10">
+      <div className="flex flex-col md:flex-row items-end justify-center gap-8 mt-10">
         {isTopImagesLoaded ? (
           <>
-            <div className="flex flex-col items-center w-60 h-70 "><TopDogImageSkeleton /></div>
-            <div className="flex flex-col items-center w-80 h-90"><TopDogImageSkeleton /></div>
-            <div className="flex flex-col items-center w-60 h-70"><TopDogImageSkeleton /></div>
+            <div className="flex flex-col items-center w-full md:w-60 h-70 px-6 md:px-0"><TopDogImageSkeleton /></div>
+            <div className="flex flex-col items-center w-full md:w-80 h-90 px-6 md:px-0"><TopDogImageSkeleton /></div>
+            <div className="flex flex-col items-center w-full md:w-60 h-70 px-6 md:px-0"><TopDogImageSkeleton /></div>
           </>
         ) : (
           topImages.length > 0 && (

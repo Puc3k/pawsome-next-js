@@ -44,7 +44,7 @@ const QuizContent: React.FC<QuizContentProps> = ({
     </div>
   )
   return (
-    <section className="relative mx-auto pt-8 pb-16 overflow-hidden bg-gray-50">
+    <section className="relative mx-auto pt-8 pb-16 px-4 md:px-0 overflow-hidden bg-gray-50">
       <div
         className={ `inset-0 opacity-3 pointer-events-none ${ classes.pawBackground }` }></div>
       <div className="relative z-10">
@@ -52,7 +52,7 @@ const QuizContent: React.FC<QuizContentProps> = ({
           <>
             { renderQuizHeader() }
             <p className="text-center mb-6">Loading images...</p>
-            <div className="flex justify-center items-center gap-12">
+            <div className="flex justify-center flex-col md:flex-row items-center gap-12">
               <DogImageSkeleton/>
               <div className="hidden md:block relative z-20">
                 <span
@@ -90,7 +90,7 @@ const QuizContent: React.FC<QuizContentProps> = ({
                   rightImage) }
                 alt="First dog image"
               />
-              <div className="hidden md:block relative z-20">
+              <div className="block relative z-20">
                 <div
                   className="flex items-center justify-center w-20 h-20 bg-white bg-opacity-80 rounded-full shadow-md border-2 border-gray-300">
                   <span
