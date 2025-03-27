@@ -18,6 +18,7 @@ const TopDogs: React.FC = () => {
   const [totalCompletions, setTotalCompletions] = useState<number | null>(null)
   const [isTopImagesLoaded, setIsTopImagesLoaded] = useState(true)
   const [isCompletionsLoading, setIsCompletionsLoading] = useState(true)
+  const [isQuizStartBtnClicked, setIsQuizStartBtnClicked] = useState(false)
 
   useEffect(() => {
     async function fetchData () {
@@ -50,6 +51,10 @@ const TopDogs: React.FC = () => {
 
     fetchTotalQuizzes()
   }, [])
+
+  const handleStartQuizClick = () => {
+    setIsQuizStartBtnClicked(true)
+  }
 
   return (
     <section className="relative bg-gradient-to-b from-white to-amber-100 py-16 pb-32 overflow-hidden">
@@ -89,7 +94,7 @@ const TopDogs: React.FC = () => {
             <div className="flex flex-col items-center w-full md:w-60 h-70 px-6 md:px-0"><TopDogImageSkeleton /></div>
           </>
         ) : (
-          topImages.length > 0 && (
+          topImages && topImages.length > 0 && (
             <>
               <TopDogItem image={topImages[1]} index={1} />
               <TopDogItem image={topImages[0]} index={0} />
@@ -99,14 +104,24 @@ const TopDogs: React.FC = () => {
         )}
       </div>
       <div className="mt-12 text-center">
-        <Link href="/quiz" className="rounded-md bg-amber-400 py-3 px-8 border border-transparent text-center text-sm text-white font-mono transition-all shadow-sm hover:shadow-lg focus:bg-amber-500 focus:shadow-none active:bg-amber-500 hover:bg-amber-500 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer font-bold">
-          Start the Quiz →
+        <Link href="/quiz"
+              onClick={ handleStartQuizClick }
+              className="rounded-md bg-amber-400 py-3 px-8 border border-transparent text-center text-sm text-white font-mono transition-all shadow-sm hover:shadow-lg focus:bg-amber-500 focus:shadow-none active:bg-amber-500 hover:bg-amber-500 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer font-bold">
+          { isQuizStartBtnClicked ? (
+            <>Loading...</>
+          ) : (
+            <>Start the Quiz →</>
+          )
+          }
         </Link>
       </div>
-      { hasMounted && <FloatingItems items={ floatingItems } /> }
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
-        <svg className="relative block w-[calc(100%+1.3px)] h-16 text-white" fill="white" preserveAspectRatio="none" viewBox="0 0 360 28">
-          <path d="M0,14 C30,23 60,28 90,28 C120,28 150,23 180,14 C210,5 240,0 270,0 C300,0 330,5 360,14 L360,30 L0,30 Z" />
+      { hasMounted && <FloatingItems items={ floatingItems }/> }
+      <div
+        className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0]">
+        <svg className="relative block w-[calc(100%+1.3px)] h-16 text-white"
+             fill="white" preserveAspectRatio="none" viewBox="0 0 360 28">
+          <path
+            d="M0,14 C30,23 60,28 90,28 C120,28 150,23 180,14 C210,5 240,0 270,0 C300,0 330,5 360,14 L360,30 L0,30 Z"/>
         </svg>
       </div>
     </section>
