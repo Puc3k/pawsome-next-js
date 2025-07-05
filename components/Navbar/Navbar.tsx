@@ -55,19 +55,18 @@ const Navbar: React.FC = () => {
           </button>
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <button
+          <Link
+            href="/quiz"
             onClick={ handleStartQuizClick }
             className="flex items-center rounded-md bg-amber-400 py-2 px-4 border border-transparent text-center text-sm text-white font-mono transition-all shadow-sm hover:shadow-lg focus:bg-amber-500 focus:shadow-none active:bg-amber-500 hover:bg-amber-500 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none cursor-pointer font-bold"
             type="button">
-            <Link href="/quiz">
               { isQuizStartBtnClicked ? (
                 <>Loading...</>
               ) : (
                 <>Start the Quiz →</>
               )
               }
-            </Link>
-          </button>
+          </Link>
         </div>
       </nav>
       <Dialog open={ mobileMenuOpen } onClose={ setMobileMenuOpen }
