@@ -6,6 +6,7 @@ import './globals.css'
 
 import Footer from '@/components/Footer/Footer'
 import Navbar from '@/components/Navbar/Navbar'
+import Toast from '@/components/Utils/Toast'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,13 +30,17 @@ export default function RootLayout ({
 }>) {
   return (
     <html lang="en">
-    <body
-      className={ `${ geistSans.variable } ${ geistMono.variable } antialiased ` }
-    >
-    <Navbar />
-    { children }
-    <Footer/>
-    </body>
+      <body
+        className={ `${ geistSans.variable } ${ geistMono.variable } antialiased min-h-screen flex flex-1 flex-col` }
+      >
+        <Navbar/>
+
+          { children }
+
+        <Footer/>
+
+        <Toast/>
+      </body>
     </html>
   )
 }
