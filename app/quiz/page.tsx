@@ -21,7 +21,9 @@ export default function QuizPage () {
 
   useEffect(() => {
     if (quizState.pool.length === 1) {
-      saveWinner(quizState.pool[0])
+      saveWinner(quizState.pool[0]).catch((err) => {
+        console.error("Failed to save winner, try again", err)
+      })
 
       localStorage.removeItem('quizState')
       localStorage.removeItem('quizImages')
@@ -37,7 +39,7 @@ export default function QuizPage () {
     resetQuiz()
     resetDogImages()
     setSelectedImage(null)
-    refetchDogImages()
+    void refetchDogImages()
   }
 
   return <QuizContent
