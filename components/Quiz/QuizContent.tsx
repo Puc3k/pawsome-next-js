@@ -1,23 +1,13 @@
 'use client'
-import React from 'react'
+
 import DogImage from '@/components/DogImage/DogImage'
 import ProgressBar from '@/components/Utils/ProgressBar'
 import WinnerDogImage from '@/components/DogImage/WinnerDogImage'
 import DogImageSkeleton from '@/components/DogImage/DogImageSkeleton'
 import classes from './quiz.module.css'
+import { QuizContentProps } from '@/types/tournament'
 
-interface QuizContentProps {
-  selectedImage: string | null
-  setSelectedImage: (img: string | null) => void
-  quizState: { round: number; pool: string[]; currentWinner: string | null }
-  isLoading: boolean
-  error: any
-  handleImageSelected: (selected: string, challenger: string) => void
-  handleReset: () => void
-  dogImages: string[]
-}
-
-const QuizContent: React.FC<QuizContentProps> = ({
+const QuizContent = ({
   selectedImage,
   setSelectedImage,
   quizState,
@@ -26,7 +16,7 @@ const QuizContent: React.FC<QuizContentProps> = ({
   handleImageSelected,
   handleReset,
   dogImages,
-}) => {
+}: QuizContentProps) => {
   const currentRound = quizState.round + 1
   const totalRounds = dogImages.length || 10
   const leftImage = quizState.pool[0]

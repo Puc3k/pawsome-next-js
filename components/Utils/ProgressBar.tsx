@@ -1,9 +1,6 @@
-type ProgressBarProps = {
-  current: number;
-  total: number;
-};
+import { ProgressBarProps } from '@/types/tournament'
 
-const ProgressBar: React.FC<ProgressBarProps> = ({ current, total }) => {
+const ProgressBar = ({ current, total }: ProgressBarProps) => {
   const percentage = Math.round(( current / total ) * 100)
   return (
     <div className="w-full mx-auto mb-6 flex flex-col items-center px-4 md:px-0">

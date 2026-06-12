@@ -41,7 +41,7 @@ export default function useDogImages () {
     if (storedImages) {
       setDogImages(JSON.parse(storedImages))
     } else {
-      fetchDogImages()
+      void fetchDogImages()
     }
   }, [fetchDogImages])
 

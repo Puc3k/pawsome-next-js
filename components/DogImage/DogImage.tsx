@@ -1,13 +1,6 @@
-import Image, { StaticImageData } from 'next/image'
+import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
-
-interface DogImageProps {
-  imageUrl: string | StaticImageData,
-  alt: string,
-  isSelected: boolean,
-  onClick: () => void,
-  onAnimationComplete?: () => void,
-}
+import { DogImageProps } from '@/types/dog'
 
 const variants = {
   initial: { opacity: 0 },
@@ -15,13 +8,13 @@ const variants = {
   exit: { opacity: 0 },
 }
 
-const DogImage: React.FC<DogImageProps> = ({
+const DogImage = ({
   imageUrl,
   alt,
   isSelected,
   onClick,
   onAnimationComplete,
-}) => {
+}: DogImageProps)  => {
   return <div onClick={ onClick }
               className="bg-white relative w-full h-70 md:h-95 md:w-95 rounded-lg
      shadow-lg cursor-pointer hover:scale-105 overflow-hidden transition-transform border-2 border-transparent hover:border-yellow-400">

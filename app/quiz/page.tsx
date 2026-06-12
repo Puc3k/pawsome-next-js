@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import useDogImages from '@/hooks/useDogImages'
 import useQuizState from '@/hooks/useQuizState'
 import { saveWinner } from '@/lib/quiz'

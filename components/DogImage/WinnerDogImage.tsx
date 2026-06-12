@@ -1,10 +1,6 @@
 import Image from 'next/image'
-import React from 'react'
+import { WinnerDogImageProps } from '@/types/dog'
 
-interface WinnerDogImageProps {
-  imageUrl: string,
-  onReset: () => void
-}
 
 export default function WinnerDogImage ({
   imageUrl,

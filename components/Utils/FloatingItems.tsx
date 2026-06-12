@@ -1,4 +1,6 @@
-const FloatingItems: React.FC<{ items: string[] }> = ({ items }) => {
+import { FloatingProps } from '@/types/tournament'
+
+const FloatingItems = ({ items }: FloatingProps) => {
   const positions = [
     { top: '20%', left: '15%' },
     { top: '30%', right: '15%' },

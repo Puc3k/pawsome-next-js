@@ -2,13 +2,9 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import TopDogImageSkeleton from '@/components/TopDog/TopDogImageSkeleton'
+import { TopDogItemProps } from '@/types/tournament'
 
-interface TopDogItemProps {
-  image: { _id: string } | null
-  index: number
-}
-
-const TopDogItem: React.FC<TopDogItemProps> = ({ image, index }) => {
+const TopDogItem = ({ image, index }: TopDogItemProps) => {
   const [isLoading, setIsLoading] = useState(true)
 
   const handleLoad = () => setIsLoading(false)

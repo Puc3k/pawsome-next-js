@@ -16,7 +16,7 @@ import logoImg from '@/assets/logo.webp'
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isQuizStartBtnClicked, setIsQuizStartBtnClicked] = useState(false)
   const pathname = usePathname()

@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react'
-
-export type QuizState = {
-  round: number,
-  pool: string[],
-  currentWinner: string | null
-}
+import { QuizState } from '@/types/tournament'
 
 export default function useQuizState (initialPool: string[]) {
   const [state, setState] = useState<QuizState>(() => {
@@ -45,7 +40,7 @@ export default function useQuizState (initialPool: string[]) {
   }, [])
 
   useEffect(() => {
-      localStorage.setItem('quizState', JSON.stringify(state))
+    localStorage.setItem('quizState', JSON.stringify(state))
   }, [state])
 
   const handleChange = (selected: string, challenger: string) => {
