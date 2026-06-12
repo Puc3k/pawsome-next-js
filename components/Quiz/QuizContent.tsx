@@ -34,7 +34,7 @@ const QuizContent = ({
     </div>
   )
   return (
-    <section className="relative mx-auto pt-8 pb-16 px-4 md:px-0 overflow-hidden bg-gray-50">
+    <section className="relative mx-auto pt-8 pb-16 px-4 md:px-0 overflow-hidden bg-gray-50 ">
       <div
         className={ `inset-0 opacity-3 pointer-events-none ${ classes.pawBackground }` }></div>
       <div className="relative z-10">

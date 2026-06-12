@@ -1,33 +1,41 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { fetchWinners } from '@/lib/quiz'
 import TopDogItem from '@/components/TopDog/TopDogItem'
 import FloatingItems from '@/components/Utils/FloatingItems'
 import TopDogImageSkeleton from '@/components/TopDog/TopDogImageSkeleton'
-import Link from 'next/link'
+import { useToastStore } from '@/store/useToastStore'
 
-async function getTopWinners() {
+async function getTopWinners () {
   return await fetchWinners()
 }
 
-const TopDogs: React.FC = () => {
+const TopDogs = () => {
   const [hasMounted, setHasMounted] = useState(false)
   const [topImages, setTopImages] = useState([])
-  const [floatingItems] = useState<string[]>([ '🎾', '🦴', '🐶', '🐕' ])
+  const [floatingItems] = useState<string[]>(['🎾', '🦴', '🐶', '🐕'])
   const [totalCompletions, setTotalCompletions] = useState<number | null>(null)
   const [isTopImagesLoaded, setIsTopImagesLoaded] = useState(true)
   const [isCompletionsLoading, setIsCompletionsLoading] = useState(true)
   const [isQuizStartBtnClicked, setIsQuizStartBtnClicked] = useState(false)
+  const showToast = useToastStore((state) => state.showToast)
 
   useEffect(() => {
     async function fetchData () {
-      const winners = await getTopWinners()
-      setTopImages(winners.topWinners)
-      setIsTopImagesLoaded(false)
+      try {
+        const winners = await getTopWinners()
+        setTopImages(winners.topWinners)
+        setIsTopImagesLoaded(false)
+      } catch (error) {
+        showToast('Failed to load the Top Dogs ranking.', 'error')
+      } finally {
+        setIsTopImagesLoaded(false)
+      }
     }
 
-    fetchData()
+    void fetchData()
   }, [])
 
   useEffect(() => {
@@ -39,17 +47,22 @@ const TopDogs: React.FC = () => {
       setIsCompletionsLoading(true)
       try {
         const res = await fetch('/api/winner')
-        if (!res.ok) throw new Error('Failed to fetch winners')
+
+        if (!res.ok) {
+          showToast('Failed to fetch winners', 'error')
+          return
+        }
+
         const { totalQuizzes } = await res.json()
         setTotalCompletions(totalQuizzes)
       } catch (error) {
-        console.error('Error fetching total quizzes:', error)
+        showToast('Error fetching total quizzes', 'error')
       } finally {
         setIsCompletionsLoading(false)
       }
     }
 
-    fetchTotalQuizzes()
+    void fetchTotalQuizzes()
   }, [])
 
   const handleStartQuizClick = () => {
@@ -57,7 +70,7 @@ const TopDogs: React.FC = () => {
   }
 
   return (
-    <section className="relative bg-gradient-to-b from-white to-amber-100 py-16 pb-32 overflow-hidden">
+    <section className="relative bg-gradient-to-b from-white to-amber-100 py-16 pb-32 overflow-hidden flex-1 flex flex-col justify-center">
       <div className="text-center">
         <h1 className="text-5xl font-extrabold text-gray-800 mb-4 font-[Poppins]">
           Welcome to Pawsome!
@@ -67,9 +80,12 @@ const TopDogs: React.FC = () => {
           favorite and help us find the ultimate Top Dog!
         </p>
       </div>
+
       { isCompletionsLoading ? (
         <div className="mt-8 text-center">
-          <div className="text-5xl font-extrabold text-amber-500 tracking-tight font-mono animate-pulse rounded-lg w-24 mx-auto">0</div>
+          <div
+            className="text-5xl font-extrabold text-amber-500 tracking-tight font-mono animate-pulse rounded-lg w-24 mx-auto">0
+          </div>
           <p className="mt-2 text-md text-gray-500 font-semibold font-mono">
             Quizzes <span className="text-amber-500">Completed</span>
           </p>
@@ -85,23 +101,23 @@ const TopDogs: React.FC = () => {
             </p>
           </div>
         )
-      )}
+      ) }
       <div className="flex flex-col md:flex-row items-end justify-center gap-8 mt-10">
-        {isTopImagesLoaded ? (
+        { isTopImagesLoaded ? (
           <>
-            <div className="flex flex-col items-center w-full md:w-60 h-70 px-6 md:px-0"><TopDogImageSkeleton /></div>
-            <div className="flex flex-col items-center w-full md:w-80 h-90 px-6 md:px-0"><TopDogImageSkeleton /></div>
-            <div className="flex flex-col items-center w-full md:w-60 h-70 px-6 md:px-0"><TopDogImageSkeleton /></div>
+            <div className="flex flex-col items-center w-full md:w-60 h-70 px-6 md:px-0"><TopDogImageSkeleton/></div>
+            <div className="flex flex-col items-center w-full md:w-80 h-90 px-6 md:px-0"><TopDogImageSkeleton/></div>
+            <div className="flex flex-col items-center w-full md:w-60 h-70 px-6 md:px-0"><TopDogImageSkeleton/></div>
           </>
         ) : (
           topImages && topImages.length > 0 && (
             <>
-              <TopDogItem image={topImages[1]} index={1} />
-              <TopDogItem image={topImages[0]} index={0} />
-              <TopDogItem image={topImages[2]} index={2} />
+              <TopDogItem image={ topImages[1] } index={ 1 }/>
+              <TopDogItem image={ topImages[0] } index={ 0 }/>
+              <TopDogItem image={ topImages[2] } index={ 2 }/>
             </>
           )
-        )}
+        ) }
       </div>
       <div className="mt-12 text-center">
         <Link href="/quiz"
