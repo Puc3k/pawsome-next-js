@@ -19,18 +19,20 @@ export default function useDogImages () {
 
       if (!res.ok) {
         setError('Failed to fetch dogImages')
+        return
       }
 
       const data = await res.json()
 
       if (data && data.errors) {
         setError('Failed to fetch dogImages')
+        return
       }
       const images = data['message']
       setDogImages(images)
       localStorage.setItem(IMAGES_KEY, JSON.stringify(images))
-    } catch (error) {
-      setError(error)
+    } catch (error: any) {
+      setError(error.message || 'Something went wrong')
     } finally {
       setIsLoading(false)
     }
