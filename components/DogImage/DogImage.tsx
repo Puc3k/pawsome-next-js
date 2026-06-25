@@ -20,9 +20,9 @@ const DogImage = ({
      shadow-lg cursor-pointer hover:scale-105 overflow-hidden transition-transform border-2 border-transparent hover:border-yellow-400">
     <Image src={ imageUrl }
            alt={ alt }
-           width="300"
-           height="300"
-           className="w-full h-full object-cover md:object-cover rounded-lg"
+           fill
+           sizes="(max-width: 768px) 100vw, 50vw"
+           className="w-full h-full object-cover md:object-fill rounded-lg"
            priority
     />
     <AnimatePresence>
@@ -35,7 +35,7 @@ const DogImage = ({
           transition={ { duration: 0.2 } }
           onAnimationComplete={ (definition) => {
             if (definition === 'animate') {
-              onAnimationComplete && onAnimationComplete()
+              onAnimationComplete?.()
             }
           } }
           className="absolute inset-0 bg-yellow-400 flex items-center justify-center rounded-lg"
