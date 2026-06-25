@@ -16,7 +16,7 @@ const DogImage = ({
   onAnimationComplete,
 }: DogImageProps)  => {
   return <div onClick={ onClick }
-              className="bg-white relative w-full h-70 md:h-95 md:w-95 rounded-lg
+              className="bg-white relative w-full h-72 md:h-96 md:w-96 rounded-lg
      shadow-lg cursor-pointer hover:scale-105 overflow-hidden transition-transform border-2 border-transparent hover:border-yellow-400">
     <Image src={ imageUrl }
            alt={ alt }
