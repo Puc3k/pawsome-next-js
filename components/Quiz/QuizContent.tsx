@@ -25,7 +25,7 @@ const QuizContent = ({
   const renderQuizHeader = () => (
     <div>
       <h1
-        className="text-5xl text-center font-bold mb-4 mt-6 font-[Poppins] tracking-wide">
+        className="text-xl mt-2 md:text-5xl text-center font-bold mb-4 md:mt-6 font-[Poppins] tracking-wide">
         Which dog image wins?
       </h1>
       <p className="text-center text-lg font-sans mb-6 tracking-wide">
@@ -34,7 +34,7 @@ const QuizContent = ({
     </div>
   )
   return (
-    <section className="relative mx-auto pt-8 pb-16 px-4 md:px-0 overflow-hidden bg-gray-50 ">
+    <section className="relative  pt-8 pb-16 px-4 md:px-0 overflow-hidden bg-gray-50 min-h-screen">
       <div
         className={ `inset-0 opacity-3 pointer-events-none ${ classes.pawBackground }` }></div>
       <div className="relative z-10">
