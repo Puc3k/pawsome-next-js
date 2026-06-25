@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import useDogImages from '@/hooks/useDogImages'
-import useQuizState from '@/hooks/useQuizState'
 import { saveWinner } from '@/lib/quiz'
 import QuizContent from '@/components/Quiz/QuizContent'
+import { useTournamentStore } from '@/store/tournamentStore'
+import { useToastStore } from '@/store/useToastStore'
 
 export default function QuizPage () {
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const showToast = useToastStore((state) => state.showToast)
 
   const {
     dogImages,
@@ -17,18 +19,33 @@ export default function QuizPage () {
     refetch: refetchDogImages,
   } = useDogImages()
 
-  const { quizState, handleChange, resetQuiz } = useQuizState(dogImages)
+  const {
+    pool,
+    round,
+    currentWinner,
+    handleChange,
+    resetQuiz,
+    initPool
+  } = useTournamentStore()
+
+  const quizState = { pool, round, currentWinner }
 
   useEffect(() => {
-    if (quizState.pool.length === 1) {
-      saveWinner(quizState.pool[0]).catch((err) => {
-        console.error("Failed to save winner, try again", err)
+    if (dogImages && dogImages.length > 0) {
+      initPool(dogImages)
+    }
+  }, [dogImages, initPool])
+
+  useEffect(() => {
+    if (pool.length === 1) {
+      saveWinner(pool[0]).catch((err) => {
+        showToast("Failed to save winner, try again")
+        console.error(err)
       })
 
-      localStorage.removeItem('quizState')
       localStorage.removeItem('quizImages')
     }
-  }, [quizState.pool])
+  }, [pool])
 
   function handleImageSelected (selected: string, challenger: string) {
     setSelectedImage(null)
