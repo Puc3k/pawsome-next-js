@@ -1,38 +1,48 @@
 'use client'
 
+import { useState } from 'react'
+import { useTournamentStore } from '@/store/tournamentStore'
+
 import DogImage from '@/components/DogImage/DogImage'
 import ProgressBar from '@/components/Utils/ProgressBar'
 import WinnerDogImage from '@/components/DogImage/WinnerDogImage'
 import DogImageSkeleton from '@/components/DogImage/DogImageSkeleton'
-import classes from './quiz.module.css'
+
 import { QuizContentProps } from '@/types/tournament'
+import classes from './quiz.module.css'
+
+const renderQuizHeader = () => (
+  <div>
+    <h1
+      className="text-xl mt-2 md:text-5xl text-center font-bold mb-4 md:mt-6 font-[Poppins] tracking-wide">
+      Which dog image wins?
+    </h1>
+    <p className="text-center text-lg font-sans mb-6 tracking-wide">
+      Choose your favorite!
+    </p>
+  </div>
+)
 
 const QuizContent = ({
-  selectedImage,
-  setSelectedImage,
-  quizState,
   isLoading,
   error,
-  handleImageSelected,
   handleReset,
   dogImages,
 }: QuizContentProps) => {
-  const currentRound = quizState.round + 1
-  const totalRounds = dogImages.length || 10
-  const leftImage = quizState.pool[0]
-  const rightImage = quizState.pool[1]
+  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const { pool, round, handleChange } = useTournamentStore()
 
-  const renderQuizHeader = () => (
-    <div>
-      <h1
-        className="text-xl mt-2 md:text-5xl text-center font-bold mb-4 md:mt-6 font-[Poppins] tracking-wide">
-        Which dog image wins?
-      </h1>
-      <p className="text-center text-lg font-sans mb-6 tracking-wide">
-        Choose your favorite!
-      </p>
-    </div>
-  )
+  const currentRound = round + 1
+  const totalRounds = dogImages?.length || 10
+
+  const leftImage = pool[0]
+  const rightImage = pool[1]
+
+  function handleImageSelected (selected: string, challenger: string) {
+    setSelectedImage(null)
+    handleChange(selected, challenger)
+  }
+
   return (
     <section className="relative  pt-8 pb-16 px-4 md:px-0 overflow-hidden bg-gray-50 min-h-screen">
       <div
@@ -60,12 +70,12 @@ const QuizContent = ({
           </>
         ) }
 
-        { quizState.pool.length === 1 && (
-          <WinnerDogImage imageUrl={ quizState.pool[0] }
+        { pool.length === 1 && !isLoading && (
+          <WinnerDogImage imageUrl={ pool[0] }
                           onReset={ handleReset }/>
         ) }
 
-        { quizState.pool.length > 1 && !isLoading && !error && (
+        { pool.length > 1 && !isLoading && !error && (
           <>
             { renderQuizHeader() }
             <ProgressBar current={ currentRound } total={ totalRounds }/>
