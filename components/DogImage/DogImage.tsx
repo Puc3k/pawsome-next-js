@@ -22,7 +22,7 @@ const DogImage = ({
            alt={ alt }
            width="300"
            height="300"
-           className="w-full h-full object-fill md:object-cover rounded-lg"
+           className="w-full h-full object-cover md:object-cover rounded-lg"
            priority
     />
     <AnimatePresence>
