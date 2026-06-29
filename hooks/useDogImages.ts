@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useToastStore } from '@/store/useToastStore'
+import { DogApiResponseSchema } from '@/lib/validations/quiz'
 
 const API_BASE_URL = `https://dog.ceo/api/breeds/image/random`
 
@@ -26,16 +27,20 @@ export default function useDogImages () {
         return
       }
 
-      const data = await res.json()
+      const rawData = await res.json()
 
-      if (data && data.errors) {
-        const msg = 'Invalid data received from Dog API.'
-        setError(msg)
+      const validationResult = DogApiResponseSchema.safeParse(rawData)
+
+      if (!validationResult.success) {
+        const msg = 'Invalid data received from server'
+
+        setError('msg')
         showToast(msg, 'error')
+
         return
       }
 
-      const images = data['message']
+      const images = validationResult.data.message
       setDogImages(images)
       localStorage.setItem(IMAGES_KEY, JSON.stringify(images))
     } catch (error: any) {

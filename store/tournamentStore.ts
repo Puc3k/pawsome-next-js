@@ -1,9 +1,10 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { QuizState } from '@/types/tournament'
+import { ValidatedDogPool } from '@/lib/validations/quiz'
 
 interface QuizStore extends QuizState {
-  initPool: (initialPool: string[]) => void;
+  initPool: (initialPool: ValidatedDogPool) => void;
   handleChange: (selected: string, challenger: string) => void;
   resetQuiz: () => void;
   setWinner: (winner: string) => void

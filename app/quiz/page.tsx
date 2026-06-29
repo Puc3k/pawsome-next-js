@@ -33,15 +33,13 @@ export default function QuizPage () {
   useEffect(() => {
     if (pool.length === 1) {
       saveWinner(pool[0]).catch((err) => {
-        showToast("Failed to save winner, try again")
+        showToast('Failed to save winner, try again')
         console.error(err)
       })
 
       localStorage.removeItem('quizImages')
     }
   }, [pool])
-
-
 
   function handleReset () {
     resetQuiz()
