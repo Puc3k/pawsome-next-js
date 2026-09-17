@@ -1,7 +1,7 @@
 import React from 'react'
 
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Geist, Geist_Mono, Poppins } from 'next/font/google'
 import './globals.css'
 
 import Footer from '@/components/Footer/Footer'
@@ -18,6 +18,13 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
+const poppins = Poppins({
+  weight: ['100', '300', '400', '600', '700', '800', '900'],
+  subsets: ['latin', 'latin-ext'],
+  display: 'swap',
+  variable: '--font-poppins',
+})
+
 export const metadata: Metadata = {
   title: 'Pawsome',
   description: 'Quiz app for pawsome puppies',
@@ -31,7 +38,7 @@ export default function RootLayout ({
   return (
     <html lang="en">
       <body
-        className={ `${ geistSans.variable } ${ geistMono.variable } antialiased min-h-screen flex flex-1 flex-col` }
+        className={ `${ geistSans.variable } ${ geistMono.variable } ${ poppins.variable} antialiased min-h-screen flex flex-1 flex-col` }
       >
         <Navbar/>
 
