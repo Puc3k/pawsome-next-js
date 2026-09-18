@@ -9,7 +9,6 @@ import WinnerDogImage from '@/components/DogImage/WinnerDogImage'
 import DogImageSkeleton from '@/components/DogImage/DogImageSkeleton'
 
 import { QuizContentProps } from '@/types/tournament'
-import classes from './quiz.module.css'
 
 const renderQuizHeader = () => (
   <div>
@@ -45,8 +44,7 @@ const QuizContent = ({
 
   return (
     <section className="relative  pt-8 pb-16 px-4 md:px-0 overflow-hidden bg-gray-50 min-h-screen">
-      <div
-        className={ `inset-0 opacity-3 pointer-events-none ${ classes.pawBackground }` }></div>
+      <div className="absolute inset-0 opacity-3 pointer-events-none bg-paw bg-repeat bg-[length:200px_200px]"></div>
       <div className="relative z-10">
         { isLoading && (
           <>
