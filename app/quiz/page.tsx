@@ -1,11 +1,13 @@
 'use client'
 
 import { useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import useDogImages from '@/hooks/useDogImages'
 import { saveWinner } from '@/lib/quiz'
-import QuizContent from '@/components/Quiz/QuizContent'
 import { useTournamentStore } from '@/store/tournamentStore'
 import { useToastStore } from '@/store/useToastStore'
+
+const QuizContent = dynamic(() => import('@/components/Quiz/QuizContent'))
 
 export default function QuizPage () {
   const showToast = useToastStore((state) => state.showToast)
