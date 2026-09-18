@@ -15,9 +15,11 @@ export default function WinnerDogImage ({
       </h1>
       <Image src={ imageUrl }
              alt="Winner dog image"
-             width="300"
-             height="300"
-             className="w-95 h-95 object-cover rounded-lg"
+             width={356}
+             height={475}
+             className="w-95 h-95 max-w-[356px] object-cover rounded-lg"
+             sizes="356px"
+             fetchPriority="high"
              priority
       />
       <button

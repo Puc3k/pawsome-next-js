@@ -24,6 +24,7 @@ const DogImage = ({
            sizes="(max-width: 768px) 100vw, 50vw"
            className="w-full h-full object-cover md:object-fill rounded-lg"
            priority
+           fetchPriority="high"
     />
     <AnimatePresence>
       { isSelected && (
